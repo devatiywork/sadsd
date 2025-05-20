@@ -1,0 +1,1 @@
+export { EditCardPage } from './EditCardPage'

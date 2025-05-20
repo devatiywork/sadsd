@@ -1,0 +1,10 @@
+// Экспорт всех UI компонентов из одного файла
+export { Button } from './Button'
+export { Card, CardGrid } from './Card'
+export { Checkbox } from './Checkbox'
+export { DeleteCardModal } from './DeleteCardModal/DeleteCardModal'
+export { Input } from './Input'
+export { Loader } from './Loader'
+export { Modal } from './Modal'
+export { PhoneInput } from './PhoneInput'
+export { Select } from './Select'

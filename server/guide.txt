@@ -1,0 +1,142 @@
+1. npx prisma migrate dev --name init --schema=src/prisma/schema.prisma
+2. npx prisma db seed
+3. npx prisma generate --schema=src/prisma/schema.prisma
+
+
+Запросы:
+
+# Аутентификация
+
+## Регистрация
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "FIO": "Иванов Иван Иванович",
+  "phone": "+7(999)-123-45-67",
+  "email": "ivan@example.com",
+  "login": "ivanuser",
+  "password": "password123"
+}
+
+## Авторизация
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "login": "ivanuser",
+  "password": "password123"
+}
+
+## Авторизация администратора
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "login": "admin",
+  "password": "bookworm"
+}
+
+## Проверка токена (требуется авторизация)
+GET http://localhost:5000/api/auth/check
+Authorization: Bearer <ваш_jwt_токен>
+
+
+# Карточки книг
+
+## Получение списка опубликованных карточек (требуется авторизация)
+GET http://localhost:5000/api/books
+Authorization: Bearer <ваш_jwt_токен>
+
+## Получение конкретной карточки (требуется авторизация)
+GET http://localhost:5000/api/books/:id
+Authorization: Bearer <ваш_jwt_токен>
+
+## Создание карточки (требуется авторизация)
+POST http://localhost:5000/api/books
+Authorization: Bearer <ваш_jwt_токен>
+Content-Type: application/json
+
+{
+  "title": "Война и мир",
+  "author": "Лев Толстой",
+  "type": 0,
+  "publisher": "Эксмо",
+  "year": 2019,
+  "binding": "Твердый переплет",
+  "condition": "Отличное"
+}
+
+## Обновление карточки (требуется авторизация владельца)
+PUT http://localhost:5000/api/books/:id
+Authorization: Bearer <ваш_jwt_токен>
+Content-Type: application/json
+
+{
+  "title": "Война и мир (обновлено)",
+  "condition": "Хорошее, немного потрепана обложка"
+}
+
+## Удаление карточки (требуется авторизация владельца)
+DELETE http://localhost:5000/api/books/:id
+Authorization: Bearer <ваш_jwt_токен>
+
+## Архивация карточки (требуется авторизация владельца)
+PUT http://localhost:5000/api/books/:id/archive
+Authorization: Bearer <ваш_jwt_токен>
+
+
+# Профиль пользователя
+
+## Получение информации о профиле (требуется авторизация)
+GET http://localhost:5000/api/profile
+Authorization: Bearer <ваш_jwt_токен>
+
+## Получение карточек пользователя (требуется авторизация)
+GET http://localhost:5000/api/profile/cards
+Authorization: Bearer <ваш_jwt_токен>
+
+## Архивация карточки из профиля (требуется авторизация владельца)
+PUT http://localhost:5000/api/profile/cards/:id/archive
+Authorization: Bearer <ваш_jwt_токен>
+
+
+# Администрирование (требуется авторизация администратора)
+
+## Получение списка пользователей
+GET http://localhost:5000/api/admin/users
+Authorization: Bearer <ваш_jwt_токен_админа>
+
+## Бан пользователя
+PUT http://localhost:5000/api/admin/users/:id/ban
+Authorization: Bearer <ваш_jwt_токен_админа>
+
+## Разбан пользователя
+PUT http://localhost:5000/api/admin/users/:id/unban
+Authorization: Bearer <ваш_jwt_токен_админа>
+
+## Получение карточек на модерацию
+GET http://localhost:5000/api/admin/cards/moderation
+Authorization: Bearer <ваш_jwt_токен_админа>
+
+## Одобрение карточки
+PUT http://localhost:5000/api/admin/cards/:id/approve
+Authorization: Bearer <ваш_jwt_токен_админа>
+
+## Отклонение карточки
+PUT http://localhost:5000/api/admin/cards/:id/reject
+Authorization: Bearer <ваш_jwt_токен_админа>
+Content-Type: application/json
+
+{
+  "reason": "Текст содержит недопустимую информацию"
+}
+
+## Удаление карточки администратором
+PUT http://localhost:5000/api/admin/cards/:id/delete
+Authorization: Bearer <ваш_jwt_токен_админа>
+Content-Type: application/json
+
+{
+  "reason": "Карточка нарушает правила сервиса"
+}

@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"forceConsistentCasingInFileNames": true,
 		"types": ["vite/client"],
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
 		"target": "ESNext",
@@ -14,6 +15,7 @@
 		"noEmit": true,
 		"skipLibCheck": true,
 		"strict": true,
+		"noImplicitAny": false,
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
 		"noFallthroughCasesInSwitch": true,

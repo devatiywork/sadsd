@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Модель Users для хранения пользователей
+model User {
+  id           Int      @id @default(autoincrement())
+  login        String   @unique
+  password     String
+  FIO          String
+  phone        String
+  email        String   @unique
+  dateRegister DateTime @default(now())
+  status       Int      @default(0)
+  isAdmin      Boolean  @default(false)
+
+  // Связь с карточками
+  cards Card[]
+
+  @@map("users")
+}
+
+// Модель Cards для хранения карточек книг
+model Card {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  status       Int      @default(0) // 0 - активна, 1 - в архиве, 2 - удалена
+  removeReason String?
+  title        String
+  type         Int // 0 - поделиться, 1 - получить
+  author       String
+  publisher    String?
+  year         Int?
+  binding      String?
+  condition    String?
+  dateCreate   DateTime @default(now())
+
+  // Связь с пользователем
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("cards")
+}
