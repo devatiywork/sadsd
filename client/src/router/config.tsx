@@ -4,12 +4,21 @@ import { LoginPage, RegisterPage } from '@pages/auth'
 import { CreateCardPage, ListCardsPage } from '@pages/cards'
 import { EditCardPage } from '@pages/cards/EditCardPage'
 import { ProfilePage } from '@pages/profile'
+import { Navigate } from 'react-router-dom'
 import { AuthGuard } from './guards/AuthGuard'
 import { RouteType } from './types/router.types'
 
 // Функция для создания маршрутов с учетом роли пользователя
 export const getRoutes = (isAdmin: boolean = false): RouteType[] => {
 	return [
+		// Редирект с главной на логин для неавторизованных пользователей
+		{
+			path: '/',
+			title: 'Главная',
+			element: <Navigate to='/login' replace />,
+			indexHeader: false,
+		},
+
 		// Публичные маршруты (доступны только для неавторизованных)
 		{
 			path: '/',

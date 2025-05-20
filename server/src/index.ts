@@ -27,7 +27,7 @@ app.use(requestLogger) // Логирование запросов
 // Глобальное ограничение запросов (защита от DDoS и брутфорса)
 const apiLimiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 минут
-	max: 100, // максимум 100 запросов с одного IP
+	max: 300, // максимум 100 запросов с одного IP
 	standardHeaders: true,
 	legacyHeaders: false,
 	message: {
