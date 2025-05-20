@@ -1,0 +1,7 @@
+/server/node_modules
+/server/dist
+/server/package-lock.json
+/client/node_modules
+/client/dist
+/client/package-lock.json
+/client/bun.lock
