@@ -185,7 +185,7 @@ export const ProfilePage: React.FC = () => {
 						</div>
 					</CardComponent>
 					<div className='space-y-6'>
-						<div className='border-b border-gray-200'>
+						<div className='border-b border-gray-200 overflow-y-auto'>
 							<nav className='-mb-px flex space-x-8'>
 								<button
 									className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center ${

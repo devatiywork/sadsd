@@ -121,7 +121,7 @@ export const BookCard: React.FC<BookCardProps> = ({
 				)}
 
 				{showControls && (
-					<div className='mt-auto pt-4 flex gap-2 justify-end'>
+					<div className='mt-auto pt-4 flex gap-3 overflow-y-auto'>
 						<Button
 							size='sm'
 							variant='outline'
